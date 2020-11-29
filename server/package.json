@@ -1,0 +1,49 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "workspaces": [
+    "./*"
+  ],
+  "scripts": {
+    "test": "env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha test/*.js",
+    "start": "nodemon --inspect --config nodemon.js --exec babel-node --ignore node_modules ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antonioalcm/GenomeBrowSeq.git"
+  },
+  "author": "Antonio Alcala",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/antonioalcm/GenomeBrowSeq/issues"
+  },
+  "homepage": "https://github.com/antonioalcm/GenomeBrowSeq#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "cookie-parser": "^1.4.5",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "eslint": "^5.14.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "express": "^4.16.4",
+    "http-errors": "~1.6.2",
+    "lodash": "^4.17.20",
+    "lokijs": "^1.5.11",
+    "morgan": "^1.10.0",
+    "request": "^2.88.2",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.7",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.12.1",
+    "babel-plugin-istanbul": "^5.1.1",
+    "mocha": "^6.2.3",
+    "nodemon": "^1.19.4",
+    "nyc": "^13.3.0"
+  }
+}

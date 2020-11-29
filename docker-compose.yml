@@ -1,0 +1,28 @@
+version: '3'
+services:
+  backend:
+    image: genome_backend
+    build:
+      context: ./server 
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./server:/usr/src/app/server:rw
+    ports:
+      - "9000:9000"
+    tty: true
+    restart: always
+  frontend:
+    image: genome_frontend
+    build:
+      context: ./client 
+      dockerfile: Dockerfile
+    volumes:
+      - ./client:/usr/src/app/client:rw
+    ports:
+    - "3000:3000"
+    environment:
+      HOST: 0.0.0.0
+    tty: true
+    restart: always
