@@ -1,5 +1,3 @@
-import makeRequest from "../utils/request";
-const axios = require("axios").default;
 const FlatNcbiData = require("../utils/flatNcbiData");
 const requestUtils = require("../utils/request");
 
@@ -11,7 +9,7 @@ async function generatePromise(url, socket) {
     result = await requestUtils.makeRequest(url);
     if (result) {
       element = await FlatNcbiData.generateNcbiDataset(result);
-      socket.broadcast.emit("sendncbi", element);
+      socket.emit("sendncbi", element);
     } else {
       failsUrl = url;
     }
@@ -60,13 +58,13 @@ module.exports = {
     const url = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=gds&term=${query}&datetype=edat&retmax=10000000&usehistory=y&retmode=json`;
     const data = await requestUtils.makeRequest(url);
     if (data && data.esearchresult && !data.esearchresult["ERROR"]) {
-      socket.broadcast.emit("totalresultsncbi", data.esearchresult.count);
+      socket.emit("totalresultsncbi", data.esearchresult.count);
       await getInformationCache(
         data.esearchresult.count,
         data.esearchresult.webenv,
         socket
       );
     }
-    socket.broadcast.emit("finishncbi", { status: true });
+    socket.emit("finishncbi", { status: true });
   },
 };

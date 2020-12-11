@@ -176,7 +176,13 @@ export default {
     },
   },
   mounted() {
-    this.socket = this.$nuxtSocket({ channel: '/' })
+    const self = this
+    self.socket = self.$nuxtSocket({
+      name: 'home',
+      channel: '/',
+      teardown: false,
+      persist: true,
+    })
   },
   beforeDestroy() {
     this.$nuxt.$off('open-expedient')

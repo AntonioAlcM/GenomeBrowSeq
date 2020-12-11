@@ -8,11 +8,11 @@ module.exports = {
       const data = await requestUtils.makeRequest(url);
       let results = [];
       if (data && data.experiments && data.experiments.total > 0) {
-      socket.broadcast.emit('totalresultsarrayexpress', data.experiments.total);
+      socket.emit('totalresultsarrayexpress', data.experiments.total);
         results = await FlatEMBLData.generateEMBLDataset(data.experiments)
       }
-      socket.broadcast.emit('sendarrayexpress', results);
-      socket.broadcast.emit('finisharrayexpress', {status: true});  
+      socket.emit('sendarrayexpress', results);
+      socket.emit('finisharrayexpress', {status: true});  
     } catch (error) {
       
     }

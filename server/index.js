@@ -3,7 +3,8 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
+const server = require('http').createServer(app);
+const io = require("socket.io")(server);
 /* const apiRouter = require('./routes/api'); */
 
 const search = require("./controller/search");
@@ -28,9 +29,6 @@ app.use((req, res, next) => {
   next(createError(404));
 });
 
-const server = app.listen(app.get("port"), "0.0.0.0", () => {
-  console.log("Express server listening on port " + server.address().port);
-});
 // error handler
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
@@ -42,8 +40,7 @@ app.use((err, req, res, next) => {
   /* res.render('error'); */
 });
 
-const io = require("socket.io")(server);
-
+server.listen(9000);
 search(io);
 
 module.exports = app;
