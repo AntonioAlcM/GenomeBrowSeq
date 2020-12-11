@@ -11,7 +11,7 @@ async function makeRequest(url) {
     .then(function (response) {
       return response.data;
     })
-    .catch(function (error) {});
+    .catch(function (error) { console.error(' Error: ', error)});
 }
 async function obtainGenome(sample, type) {
   let url = "";

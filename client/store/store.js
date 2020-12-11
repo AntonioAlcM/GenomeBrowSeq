@@ -35,7 +35,6 @@ export const mutations = {
     state.ncbiResults = newResults
   },
   setFinishNcbiSearch(state, data) {
-    console.log('---------leggagagagaggagag----------- ', data)
     state.finishNcbiSearch = data.status
   },
   setArrayExpedients(state, results) {
@@ -69,7 +68,6 @@ export const actions = {
     commit('setNcbiExpedients', data)
   },
   finish_ncbi({ commit }, data) {
-    console.log('---------iiiiiiiiiiiiiiiiiiiiiiiiii----------- ', data)
     commit('setFinishNcbiSearch', data)
   },
   send_expedients_array_express({ commit }, data) {

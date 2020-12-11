@@ -93,21 +93,28 @@ export default {
   },
   created() {
     const self = this
+    self.socket = this.$nuxtSocket({
+      name: 'home',
+      channel: '/',
+      teardown: false,
+      persist: true,
+    })
+    if (self.queryStore) {
+      self.socket.emit('emit_search', self.queryStore, (resp) => {})
+    }
     if (self.tabs.length > 0) {
       self.showTabs = true
     }
   },
-  mounted() {
-    this.socket = this.$nuxtSocket({ channel: '/' })
-  },
   methods: {
     search() {
-      this.$store.commit('store/setQuery', this.query)
-      console.log(' =============== ', this)
-      this.socket.emit('emit_search', this.query, (resp) => {})
+      const self = this
+      self.$store.commit('store/setQuery', this.query)
+      self.socket.emit('emit_search', this.query)
     },
     setTabIndex(event) {
-      this.$store.commit('store/setTab', event)
+      const self = this
+      self.$store.commit('store/setTab', event)
     },
   },
 }

@@ -21,16 +21,12 @@ export default {
       query: '',
     }
   },
-  mounted() {
-    this.socket = this.$nuxtSocket({ channel: '/' })
-  },
   methods: {
     search() {
       this.$store.commit('store/setQuery', this.query)
       this.$router.push({
         path: 'results',
       })
-      this.socket.emit('emit_search', this.query, (resp) => {})
     },
   },
 }
