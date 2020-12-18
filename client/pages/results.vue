@@ -1,48 +1,55 @@
 <template>
-  <div column>
-    <v-menu bottom>
-      <template v-slot:activator="{ on }">
-        <v-icon class="results-status-icon" title="Status query" v-on="on">
-          arrow_circle_down
-        </v-icon>
-      </template>
+  <div>
+    <Menu />
+    <div column styles="margin-top:16px">
+      <v-menu bottom>
+        <template v-slot:activator="{ on }">
+          <v-icon class="results-status-icon" title="Status query" v-on="on">
+            arrow_circle_down
+          </v-icon>
+        </template>
 
-      <v-list dense>
-        <v-list-item v-for="(item, index) in getStatusSearch" :key="index" row>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-          <span class="dot" :class="item.statusClass"></span>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-    <div class="search-bar" justify="center" align="center" row>
-      <v-text-field
-        v-model="query"
-        class="search-line"
-        label="Search"
-        append-icon="search"
-        @keyup.enter="search"
-        @click:append="search"
-      ></v-text-field>
+        <v-list dense>
+          <v-list-item
+            v-for="(item, index) in getStatusSearch"
+            :key="index"
+            row
+          >
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <span class="dot" :class="item.statusClass"></span>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <div class="search-bar" justify="center" align="center" row>
+        <v-text-field
+          v-model="query"
+          class="search-line"
+          label="Search"
+          append-icon="search"
+          @keyup.enter="search"
+          @click:append="search"
+        ></v-text-field>
+      </div>
+      <div row class="query-search-row">
+        <span class="results-Search-title">Search:</span
+        ><span>{{ queryStore }}</span>
+      </div>
+      <v-toolbar tabs>
+        <v-tabs
+          v-model="showTabs"
+          slider-color="#3b3b3b"
+          color="#3b3b3b"
+          @change="setTabIndex($event)"
+        >
+          <v-tab v-for="tab in tabs" :key="tab"> {{ tab }} </v-tab>
+        </v-tabs>
+      </v-toolbar>
+      <v-tabs-items v-model="showTabs">
+        <v-tab-item v-for="(tab, $index) in tabs" :key="$index">
+          <tab-panel :tabName="tab" />
+        </v-tab-item>
+      </v-tabs-items>
     </div>
-    <div row class="query-search-row">
-      <span class="results-Search-title">Search:</span
-      ><span>{{ queryStore }}</span>
-    </div>
-    <v-toolbar tabs>
-      <v-tabs
-        v-model="showTabs"
-        slider-color="#3b3b3b"
-        color="#3b3b3b"
-        @change="setTabIndex($event)"
-      >
-        <v-tab v-for="tab in tabs" :key="tab"> {{ tab }} </v-tab>
-      </v-tabs>
-    </v-toolbar>
-    <v-tabs-items v-model="showTabs">
-      <v-tab-item v-for="(tab, $index) in tabs" :key="$index">
-        <tab-panel :tabName="tab" />
-      </v-tab-item>
-    </v-tabs-items>
   </div>
 </template>
 <script>
@@ -149,7 +156,7 @@ export default {
 }
 .results-status-icon {
   position: absolute !important;
-  top: 62px;
+  top: 110px;
   right: 56px;
 }
 </style>

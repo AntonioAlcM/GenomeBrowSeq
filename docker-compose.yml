@@ -24,5 +24,30 @@ services:
     - "3000:3000"
     environment:
       HOST: 0.0.0.0
+      SHINY_URL: http://shiny:3838/
+      kNOWSEQ_URL: http://knowseq:8787/
     tty: true
     restart: always
+  shiny:
+    image: shiny
+    build:
+      context: ./shiny
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      HOST: 0.0.0.0
+    user: 'root'
+    ports:
+      - '3838:3838'
+  knowseq:
+    image: casedugr/knowseq
+    ports:
+      - "8787:8787"
+    restart: always
+    environment:
+      PASSWORD: test
+      HOST: 0.0.0.0
+networks:
+  default:
+    external:
+      name: genomebrowseq
