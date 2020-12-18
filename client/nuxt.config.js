@@ -25,12 +25,18 @@ export default {
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
+    '@nuxtjs/axios',
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ['@nuxtjs/axios', 'nuxt-socket-io'],
+  modules: [
+    '@nuxtjs/axios',
+    'nuxt-socket-io',
+    '@nuxtjs/proxy',
+    '@nuxtjs/dotenv',
+  ],
   io: {
     sockets: [
       // Required
@@ -61,7 +67,11 @@ export default {
       },
     ],
   },
-  axios: {},
+  axios: {
+    prefix: '/api',
+    proxy: true,
+  },
+
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
@@ -87,4 +97,16 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
+  proxy: {
+    '/api/knowSeq': {
+      target: process.env.kNOWSEQ_URL || 'http://localhost:8787',
+      pathRewrite: {
+        '^/api/knowSeq': '',
+      },
+    },
+  },
+  env: {
+    SHINY_URL: process.env.SHINY_URL || 'http://localhost:3838',
+    knowSeq_URL: process.env.kNOWSEQ_URL || 'http://localhost:8787',
+  },
 }

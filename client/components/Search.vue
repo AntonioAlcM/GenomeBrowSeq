@@ -19,6 +19,8 @@ export default {
   data() {
     return {
       query: '',
+      html: '',
+      shinyUrl: process.env.SHINY_URL,
     }
   },
   methods: {
